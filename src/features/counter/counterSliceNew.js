@@ -12,7 +12,7 @@ const initialState = {
 // code can then be executed and other actions can be dispatched. Thunks are
 // typically used to make async requests.
 export const incrementAsync = createAsyncThunk(
-  'counter/fetchCount',
+  'counterNew/fetchCount',
   async (amount) => {
     const response = await fetchCount(amount);
     // The value we return becomes the `fulfilled` action payload
@@ -21,7 +21,7 @@ export const incrementAsync = createAsyncThunk(
 );
 
 export const counterSlice = createSlice({
-  name: 'counter',
+  name: 'counterNew',
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
@@ -60,9 +60,7 @@ export const { increment, decrement, incrementByAmount } = counterSlice.actions;
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectCount = (state) => state.counter.value;
-
 export const incrementCountStatus = (state) => state.counter.status;
-
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.

@@ -7,15 +7,36 @@ import {
   incrementAsync,
   incrementIfOdd,
   selectCount,
+  incrementCountStatus
 } from './counterSlice';
+
+import {
+  incrementAsync as incrementAsyncNew,
+  incrementCountStatus as incrementCountStatusNew
+} from './counterSliceNew';
+
 import styles from './Counter.module.css';
 
 export function Counter() {
   const count = useSelector(selectCount);
+  const incrementStatus = useSelector(incrementCountStatus);
+  const incrementStatusNew = useSelector(incrementCountStatusNew);
   const dispatch = useDispatch();
   const [incrementAmount, setIncrementAmount] = useState('2');
 
+  console.log(`Increment Status:`, incrementStatus);
+  console.log(`Increment Status New:`, incrementStatusNew);
+
   const incrementValue = Number(incrementAmount) || 0;
+
+  const handleAsyncSubmit = () => {
+    dispatch(incrementByAmount(incrementValue))
+    dispatch(incrementAsyncNew(incrementValue))
+  }
+
+  if (incrementStatus === 'success' && incrementStatusNew === 'success') {
+    alert('Data have been saved successfully.');
+  }
 
   return (
     <div>
@@ -45,7 +66,7 @@ export function Counter() {
         />
         <button
           className={styles.button}
-          onClick={() => dispatch(incrementByAmount(incrementValue))}
+          onClick={() => handleAsyncSubmit()}
         >
           Add Amount
         </button>
